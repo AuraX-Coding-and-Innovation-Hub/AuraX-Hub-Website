@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+<link rel="stylesheet" href="/css/ContactUs.css">
+</head>
 
+<body>
+
+<!-- navigation -->
+<section class="contact">
+
+<!-- left side ,hub contact information -->
+<div class="contact__info">
+
+<h1 class="contact__title">Contact Us</h1>
+<h3 class="contact__subtitle">AuraX Coding And Innovation Hub</h3>
+
+<div class="contact__details">
+
+<div>
+<span class="contact__label">Email</span>
+<p class="contact__text">Auraxhub2026@gmail.com</p>
+</div>
+
+<div>
+<span class="contact__label">Phone</span>
+<p class="contact__text">+251 9 87 97 33 93</p>
+<p class="contact__text">+251 9 02 02 87 18</p>
+</div>
+
+<div>
+<span class="contact__label">Address</span>
+<p class="contact__text">Mekelle University, Mekelle, Ethiopia</p>
+</div>
+
+<div>
+<span class="contact__label">Telegram</span>
+<p class="contact__text">
+<a href="https://t.me/AuraX_Hub">https://t.me/AuraX_Hub</a>
+</p>
+</div>
+
+</div>
+</div>
+
+
+<!-- right side,contact form -->
+<div class="contact__form-wrapper">
+
+<div class="corner corner--top-left"></div>
+<div class="corner corner--top-right"></div>
+<div class="corner corner--bottom-left"></div>
+<div class="corner corner--bottom-right"></div>
+
+<form id="contact-form" class="contact-form">
+
+<h2 class="contact-form__title">Contact Form</h2>
+
+<label for="name">Name</label>
+<input id="name" name="name" type="text" placeholder="Name" required>
+
+<label for="email">Email</label>
+<input id="email" name="email" type="email" placeholder="Email" required>
+
+<label for="message">Message</label>
+<textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+<button type="submit" class="contact-form__submit">Send Message</button>
+
+<!-- message status -->
+<p id="form-status"></p>
+
+</form>
+
+</div>
+
+</section>
+
+<script src="/js/ContactUs.js"></script>
+
+</body>
+</html>
