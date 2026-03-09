@@ -1,1 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraX · Core Team</title>
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ----- global reset (for this isolated section) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      background-color: #020B2C; /* Dark blue background - exactly as specified */
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    /* team section container */
+    .team-section {
+      max-width: 1280px;
+      width: 100%;
+      color: #FFFFFF; /* white text */
+    }
+
+    /* ----- header with orange slash through "BUILDERS" ----- */
+    .team-header {
+      margin-bottom: 3.5rem;
+      text-align: center;
+    }
+
+    .team-header h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+    }
+
+    .team-header h2 span {
+      color: #1E4FFF; /* light blue for the word "BUILDERS" */
+      position: relative;
+      display: inline-block;
+    }
+
+    /* orange slash effect (through the span) */
+    .team-header h2 span::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: 6px;
+      background: #F24E1E; /* solid orange */
+      transform: rotate(-2deg);
+      border-radius: 4px;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .team-sub {
+      color: #b0c6f0;
+      font-size: 1.2rem;
+      margin-top: 0.75rem;
+    }
+
+    /* ----- grid layout: 6 cards ----- */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* team card */
+    .team-card {
+      background: #0F1E42; /* slightly lighter dark blue to stand out from #020B2C */
+      border-radius: 32px;
+      padding: 2rem 1.5rem 1.8rem;
+      border: 1px solid rgba(30, 79, 255, 0.4); /* light blue border */
+      backdrop-filter: blur(4px);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.7);
+    }
+
+    .team-card:hover {
+      border-color: #1E4FFF; /* light blue */
+      transform: translateY(-6px);
+      box-shadow: 0 25px 30px -12px rgba(30, 79, 255, 0.5);
+    }
+
+    /* image wrapper */
+    .team-img-wrapper {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      border: 3px solid #1E4FFF; /* light blue border */
+      transition: border-color 0.2s;
+      background: #1E3055;
+    }
+
+    .team-card:hover .team-img-wrapper {
+      border-color: #F24E1E; /* orange on hover */
+    }
+
+    .team-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* name */
+    .team-name {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 0.25rem;
+      line-height: 1.2;
+    }
+
+    /* role (founder / cofounder) with orange background tint */
+    .team-role {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #F24E1E; /* orange text */
+      background: rgba(242, 78, 30, 0.12);
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      display: inline-block;
+      margin: 0.5rem 0 0.6rem 0;
+      letter-spacing: 0.02em;
+    }
+
+    /* team description (specific lead) */
+    .team-desc {
+      font-size: 0.95rem;
+      color: #b0c8f0;
+      margin-bottom: 1rem;
+      min-height: 2.8rem;
+      font-weight: 400;
+    }
+
+    /* social icons */
+    .team-social {
+      display: flex;
+      gap: 1.4rem;
+      margin-top: 0.2rem;
+    }
+
+    .team-social a {
+      color: #a0b8e0;
+      font-size: 1.8rem;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .team-social a:hover {
+      color: #F24E1E; /* orange */
+      transform: scale(1.15);
+    }
+
+    /* keep brand colors on hover for clarity */
+    .team-social a:hover .fa-linkedin {
+      color: #0A66C2; /* linkedin blue */
+    }
+    .team-social a:hover .fa-github {
+      color: #FFFFFF; /* white */
+    }
+
+    /* community banner (exactly as seen in original images) */
+    .community-banner {
+      margin-top: 2rem;
+      background: #0F1E42;
+      border-radius: 60px;
+      padding: 1.2rem 2rem;
+      text-align: center;
+      border: 1px solid #1E4FFF;
+      color: #ccd9ff;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .community-banner span {
+      color: #F24E1E;
+      font-weight: 700;
+    }
+
+    /* responsive */
+    @media (max-width: 560px) {
+      .team-header h2 {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="team-section">
+    <!-- header with orange slash through "BUILDERS" -->
+    <div class="team-header">
+      <h2>THE <span>BUILDERS</span> OF AURAX</h2>
+      <div class="team-sub">Founder & Cofounders · Leading teams</div>
+    </div>
+
+    <!-- grid: one founder + five cofounders (total 6) -->
+    <div class="team-grid">
+      
+      <!-- 1. Dawit Gerezgiher – Founder & CEO -->
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img class="team-img" src="https://randomuser.me/api/portraits/men/44.jpg" alt="Dawit Gerezgiher">
+        </div>
+        <h3 class="team-name">Dawit Gerezgiher</h3>
+        <div class="team-role">Founder & CEO</div>
+        <div class="team-desc">Overall vision, strategy & leadership</div>
+        <div class="team-social">
+          <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- 2. Eyob Seta – Cofounder & COO (Operations & Infrastructure) -->
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img class="team-img" src="https://randomuser.me/api/portraits/men/36.jpg" alt="Eyob Seta">
+        </div>
+        <h3 class="team-name">Eyob Seta</h3>
+        <div class="team-role">Cofounder & COO</div>
+        <div class="team-desc">Operations & Infrastructure Lead</div>
+        <div class="team-social">
+          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- 3. Mahlet Tesfahuney – Cofounder, Marketing, Communication & Data Analytics -->
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img class="team-img" src="https://randomuser.me/api/portraits/women/90.jpg" alt="Mahlet Tesfahuney">
+        </div>
+        <h3 class="team-name">Mahlet Tesfahuney</h3>
+        <div class="team-role">Cofounder & CMO</div>
+        <div class="team-desc">Marketing, Comms & Data Analytics</div>
+        <div class="team-social">
+          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- 4. Bereket Kiros – Cofounder, Industry Engagement & Partnerships -->
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img class="team-img" src="https://randomuser.me/api/portraits/men/52.jpg" alt="Bereket Kiros">
+        </div>
+        <h3 class="team-name">Bereket Kiros</h3>
+        <div class="team-role">Cofounder</div>
+        <div class="team-desc">Industry Engagement & Partnerships</div>
+        <div class="team-social">
+          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- 5. Fanual – Cofounder, Innovation & Technical Support -->
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img class="team-img" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Fanual">
+        </div>
+        <h3 class="team-name">Faniel Negasi</h3>
+        <div class="team-role">Cofounder</div>
+        <div class="team-desc">Innovation & Technical Support</div>
+        <div class="team-social">
+          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <!-- 6. Edlawit Kalaue – Cofounder, Academic & Program Management -->
+      <div class="team-card">
+        <div class="team-img-wrapper">
+          <img class="team-img" src="https://randomuser.me/api/portraits/women/45.jpg" alt="Edlawit Kalaue">
+        </div>
+        <h3 class="team-name">Edlawit Kalaue</h3>
+        <div class="team-role">Cofounder</div>
+        <div class="team-desc">Academic & Program Management</div>
+        <div class="team-social">
+          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <!-- community banner (as seen in original design) -->
+    <div class="community-banner">
+      <span>⚡ COMMUNITY DEVELOPERS ⚡</span> · 25+ active members · 6 project teams · always open
+    </div>
+
+    <!-- note: replace # with actual profile URLs -->
+    <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem; color: #6a7fb1;">Click icons to connect (LinkedIn & GitHub placeholders)</p>
+  </section>
+</body>
+</html>
