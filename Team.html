@@ -19,19 +19,21 @@
     }
 
     body {
-      background-color: #020B2C; /* Dark blue background - exactly as specified */
       font-family: 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-image: linear-gradient(rgba(2, 11, 44, 0.9), rgba(2, 11, 44, 0.9)), url('assets/bg-contact.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       min-height: 100vh;
-      padding: 2rem;
+      padding: clamp(1.5rem, 4vw, 4rem);
+      color: #FFFFFF;
     }
 
     /* team section container */
     .team-section {
-      max-width: 1280px;
+      max-width: 1200px;
       width: 100%;
+      margin: 0 auto;
       color: #FFFFFF; /* white text */
     }
 
@@ -78,17 +80,17 @@
     /* ----- grid layout: 6 cards ----- */
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 2rem;
       margin-bottom: 2.5rem;
     }
 
     /* team card */
     .team-card {
-      background: #0F1E42; /* slightly lighter dark blue to stand out from #020B2C */
-      border-radius: 32px;
+      background: #131925; /* slightly lighter dark blue to stand out from #020B2C */
+      border-radius: 15px;
       padding: 2rem 1.5rem 1.8rem;
-      border: 1px solid rgba(30, 79, 255, 0.4); /* light blue border */
+      border: 1px solid #1E4FFF; /* light blue border */
       backdrop-filter: blur(4px);
       transition: all 0.25s ease;
       display: flex;
@@ -96,10 +98,11 @@
       align-items: center;
       text-align: center;
       box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.7);
+      height: 100%;
     }
 
     .team-card:hover {
-      border-color: #1E4FFF; /* light blue */
+      border-color: #f24e1e; /* light blue */
       transform: translateY(-6px);
       box-shadow: 0 25px 30px -12px rgba(30, 79, 255, 0.5);
     }
@@ -189,7 +192,7 @@
     .community-banner {
       margin-top: 2rem;
       background: #0F1E42;
-      border-radius: 60px;
+      border-radius: 10px;
       padding: 1.2rem 2rem;
       text-align: center;
       border: 1px solid #1E4FFF;
@@ -204,7 +207,21 @@
     }
 
     /* responsive */
-    @media (max-width: 560px) {
+    @media (max-width: 1024px) {
+      .team-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
       .team-header h2 {
         font-size: 2.2rem;
       }
@@ -225,7 +242,7 @@
       <!-- 1. Dawit Gerezgiher – Founder & CEO -->
       <div class="team-card">
         <div class="team-img-wrapper">
-          <img class="team-img" src="./assets/dave.JPG" alt="Dawit Gerezgiher">
+          <img class="team-img" src="assets/dave.JPG">
         </div>
         <h3 class="team-name">Dawit Gerezgiher</h3>
         <div class="team-role">Founder & CEO</div>
@@ -239,7 +256,7 @@
       <!-- 2. Eyob Seta – Cofounder & COO (Operations & Infrastructure) -->
       <div class="team-card">
         <div class="team-img-wrapper">
-          <img class="team-img" src="/assets/Eyob.jpg" alt="Eyob Seta">
+          <img class="team-img" src="assets/Eyob.jpg" alt="Eyob Seta">
         </div>
         <h3 class="team-name">Eyob Seta</h3>
         <div class="team-role">Cofounder & COO</div>
@@ -253,7 +270,7 @@
       <!-- 3. Mahlet Tesfahuney – Cofounder, Marketing, Communication & Data Analytics -->
       <div class="team-card">
         <div class="team-img-wrapper">
-          <img class="team-img" src="./assets/mahi.jpg" alt="Mahlet Tesfahuney">
+          <img class="team-img" src="assets/mahi.jpg" alt="Mahlet Tesfahuney">
         </div>
         <h3 class="team-name">Mahlet Tesfahuney</h3>
         <div class="team-role">Cofounder & CMO</div>
@@ -267,7 +284,7 @@
       <!-- 4. Bereket Kiros – Cofounder, Industry Engagement & Partnerships -->
       <div class="team-card">
         <div class="team-img-wrapper">
-          <img class="team-img" src="./assets/beki.jpg" alt="Bereket Kiros">
+          <img class="team-img" src="assets/beki.jpg" alt="Bereket Kiros">
         </div>
         <h3 class="team-name">Bereket Kiros</h3>
         <div class="team-role">Cofounder</div>
@@ -278,10 +295,10 @@
         </div>
       </div>
 
-      <!-- 5. Fanual – Cofounder, Innovation & Technical Support -->
+      <!-- 5. Faniel – Cofounder, Innovation & Technical Support -->
       <div class="team-card">
         <div class="team-img-wrapper">
-          <img class="team-img" src="./assets/fani.JPG" alt="Fanual">
+          <img class="team-img" src="assets/fani.JPG" alt="Fanual">
         </div>
         <h3 class="team-name">Faniel Negasi</h3>
         <div class="team-role">Cofounder</div>
@@ -295,7 +312,7 @@
       <!-- 6. Edlawit Kalaue – Cofounder, Academic & Program Management -->
       <div class="team-card">
         <div class="team-img-wrapper">
-          <img class="team-img" src="./assets/edl.jpg" alt="Edlawit Kalaue">
+          <img class="team-img" src="assets/edl.jpg" alt="Edlawit Kalaue">
         </div>
         <h3 class="team-name">Edlawit Kalaue</h3>
         <div class="team-role">Cofounder</div>
