@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraX | Events Roadmap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020B2C;
+            --text: #FFFFFF;
+            --accent-orange: #F24E1E;
+            --accent-blue: #1E4FFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            color: var(--text);
+            background:
+                linear-gradient(rgba(2, 11, 44, 0.9), rgba(2, 11, 44, 0.9)),
+                url('assets/bg-contact.png') center/cover no-repeat fixed;
+            line-height: 1.6;
+        }
+
+        .hero {
+            min-height: 260px;
+            padding: 64px 6vw;
+            display: flex;
+            align-items: flex-end;
+            background:
+                linear-gradient(110deg, rgba(2, 11, 44, 0.95), rgba(2, 11, 44, 0.65));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 1rem;
+            max-width: 700px;
+        }
+
+        .events-wrap {
+            width: min(1060px, 92vw);
+            margin: 70px auto 90px;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto 56px;
+        }
+
+        .section-intro h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+            margin-bottom: 12px;
+        }
+
+        .section-intro p {
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 999px;
+            background: linear-gradient(to bottom, transparent, var(--accent-blue), transparent);
+            box-shadow: 0 0 20px rgba(30, 79, 255, 0.35);
+        }
+
+        .event-row {
+            position: relative;
+            width: 100%;
+            margin: 28px 0;
+            min-height: 156px;
+            display: flex;
+        }
+
+        .event-row.left {
+            justify-content: flex-start;
+        }
+
+        .event-row.right {
+            justify-content: flex-end;
+        }
+
+        .event-card {
+            width: calc(50% - 42px);
+            background: linear-gradient(150deg, rgba(30, 79, 255, 0.14), rgba(2, 11, 44, 0.92));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 14px 30px rgba(2, 11, 44, 0.5);
+        }
+
+        .event-month {
+            color: var(--accent-orange);
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .event-desc {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.96rem;
+        }
+
+        .dot {
+            position: absolute;
+            left: 50%;
+            top: 38px;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+            border: 2px solid var(--bg);
+            box-shadow: 0 0 0 7px rgba(242, 78, 30, 0.22);
+        }
+
+        .cta {
+            margin-top: 62px;
+            background: linear-gradient(120deg, rgba(30, 79, 255, 0.2), rgba(2, 11, 44, 0.92));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cta h3 {
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 6px;
+        }
+
+        .cta p {
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .cta a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            background: var(--accent-orange);
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 22px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(242, 78, 30, 0.28);
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.16);
+            padding: 24px 6vw 30px;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 0.94rem;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .timeline::before {
+                left: 14px;
+                transform: none;
+            }
+
+            .event-row,
+            .event-row.left,
+            .event-row.right {
+                justify-content: flex-start;
+                margin: 22px 0;
+                padding-left: 38px;
+            }
+
+            .event-card {
+                width: 100%;
+            }
+
+            .dot {
+                left: 14px;
+                top: 26px;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div>
+            <h1>Events Roadmap</h1>
+            <p>Track what AuraX is preparing this season and join the sessions that help students and builders grow faster.</p>
+        </div>
+    </section>
+
+    <main class="events-wrap">
+        <div class="section-intro">
+            <h2>Upcoming 2026 Programs</h2>
+            <p>Each event is designed to connect students with practical skills, startup thinking, and direct exposure to global tech opportunities.</p>
+        </div>
+
+        <section class="timeline" aria-label="AuraX events timeline">
+            <article class="event-row left">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                    <div class="event-month">APR 2026</div>
+                    <h3 class="event-title">Guest speaker: diaspora CTO (remote)</h3>
+                    <p class="event-desc">A live remote conversation with an Ethiopian diaspora CTO focused on product leadership, engineering culture, and global career lessons for local talent.</p>
+                </div>
+            </article>
+
+            <article class="event-row right">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                    <div class="event-month">MAY 2026</div>
+                    <h3 class="event-title">Inter-university hackathon @Mekelle</h3>
+                    <p class="event-desc">Teams from multiple universities will solve real challenges in 48 hours, then present prototypes to mentors, judges, and partner organizations.</p>
+                </div>
+            </article>
+
+            <article class="event-row left">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                    <div class="event-month">JUN 2026</div>
+                    <h3 class="event-title">Startup weekend &amp; incubation pitch</h3>
+                    <p class="event-desc">A three-day build sprint where participants validate ideas, form startup teams, and pitch for incubation support from experienced founders.</p>
+                </div>
+            </article>
+
+            <article class="event-row right">
+                <span class="dot" aria-hidden="true"></span>
+                <div class="event-card">
+                    <div class="event-month">JUL 2026</div>
+                    <h3 class="event-title">Freelancing workshop + global platform signup</h3>
+                    <p class="event-desc">Hands-on workshop on profile setup, proposal writing, and payment basics, followed by guided sign-up on trusted global freelancing platforms.</p>
+                </div>
+            </article>
+        </section>
+
+
+    <footer>
+        AuraX Coding and Innovation Hub | Events Timeline 2026
+    </footer>
+</body>
+</html>
