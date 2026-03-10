@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <style>
+        :root {
+            --nav-bg: #020B2C;
+            --link: #FFFFFF;
+            --accent: #F24E1E;
+            --hover: #1E4FFF;
+        }
+        * {margin: 0;padding: 0;box-sizing: border-box;}
+        body {font-family: 'Manrope', 'Sora', sans-serif;background: #020B2C;color: var(--link);}        
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(2, 11, 44, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 79, 255, 0.4);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--link);
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+        }
+        .logo-a {
+            position: relative;
+            display: inline-block;
+            color: var(--link);
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            margin-right: 2px;
+        }
+        .logo-a::before {
+            content: '';
+            position: absolute;
+            left: 27%;
+            top: 43%;
+            width: 46%;
+            height: 12%;
+            background: rgba(2, 11, 44, 0.94);
+            transform: rotate(-1deg);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+        .logo-a::after {
+            content: '';
+            position: absolute;
+            left: -6%;
+            top: 58%;
+            width: 116%;
+            height: 14%;
+            background: var(--accent);
+            transform: rotate(-27deg);
+            border-radius: 6px;
+            pointer-events: none;
+        }
+        .logo-rest {
+            color: var(--link);
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: var(--link);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {color: var(--accent);}        
+        .nav-links a:hover::after {width: 100%;}
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--link);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        @media (max-width: 780px) {
+            .nav-toggle {display: inline-flex;align-items: center;gap: 0.4rem;}
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                right: 16px;
+                flex-direction: column;
+                background: rgba(2, 11, 44, 0.98);
+                padding: 1.5rem;
+                border: 1px solid rgba(30, 79, 255, 0.35);
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+                transform: scale(0.9);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+            .nav-links.open {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="nav-container">
+            <a class="brand" href="#">
+                <span class="logo" aria-label="AuraX">
+                    <span class="logo-a">A</span>
+                    <span class="logo-rest">uraX</span>
+                </span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+            <nav class="nav-links" id="primary-nav">
+                <a href="Home.html">Home</a>
+                <a href="Events.html">Events</a>
+                <a href="Team.html">Team</a>
+                <a href="AboutUs.html">AboutUs</a>
+                <a href="ContactUs.html">ContactUs</a>
+            </nav>
+        </div>
+    </header>
+    <script>
+        const toggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+        toggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+    </script>
+</body>
+</html>
