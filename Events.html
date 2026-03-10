@@ -1,954 +1,1000 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AURAX EVENTS TIMELINE</title>
-    <link rel="stylesheet" href="css/events.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700&display=swap");
 
-/* CSS Variables */
-:root {
-  --bg-main: #020b2c;
-  --text-white: #ffffff;
-  --accent-orange: #f24e1e;
-  --accent-blue: #1e4fff;
-  --shadow-dark: rgba(0, 0, 0, 0.3);
-  --shadow-light: rgba(30, 79, 255, 0.1);
-}
-
-/* General Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Manrope", "Sora", sans-serif;
-  background-color: var(--bg-main);
-  color: var(--text-white);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* Page Container */
-.page-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Header */
-.page-header {
-  text-align: center;
-  padding: 80px 20px 60px;
-  background: linear-gradient(135deg, var(--bg-main) 0%, #0a1647 100%);
-}
-
-.page-header h1 {
-  font-family: "Sora", sans-serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--text-white);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin: 0;
-  position: relative;
-}
-
-.page-header h1 span {
-  color: var(--accent-orange);
-}
-
-.page-header h1::after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background: var(--accent-orange);
-  border-radius: 2px;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 0 20px 80px;
-}
-
-/* Timeline Section */
-.timeline-section {
-  max-width: 1200px;
-  margin: 0 auto 100px;
-}
-
-.section-title {
-  font-family: "Sora", sans-serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--accent-orange);
-  text-align: center;
-  margin-bottom: 60px;
-  position: relative;
-}
-
-.section-title span {
-  color: var(--accent-orange);
-}
-
-.section-title::after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: var(--accent-blue);
-  border-radius: 2px;
-}
-
-/* Timeline Container */
-.timeline-container {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-  position: relative;
-}
-
-/* Timeline Item - 3 Column Grid */
-.timeline-item {
-  display: grid;
-  grid-template-columns: 80px 40px 1fr;
-  gap: 0;
-  align-items: start;
-  position: relative;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-
-.timeline-item.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Icon Column */
-.icon-column {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 8px;
-}
-
-.event-icon {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--accent-orange), #ff6b35);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 8px 25px var(--shadow-dark);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.event-icon:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px var(--shadow-dark);
-}
-
-.event-icon i {
-  font-size: 1.5rem;
-  color: var(--text-white);
-}
-
-/* Timeline Column */
-.timeline-column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.timeline-dot {
-  width: 20px;
-  height: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 4px solid var(--bg-main);
-  border-radius: 50%;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 0 0 4px var(--accent-blue);
-  transition: transform 0.3s ease;
-}
-
-.timeline-item:hover .timeline-dot {
-  transform: scale(1.2);
-}
-
-.timeline-line {
-  width: 4px;
-  background-color: var(--accent-blue);
-  flex: 1;
-  margin-top: 8px;
-  border-radius: 2px;
-  position: relative;
-  overflow: hidden;
-}
-
-.timeline-line::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(
-    180deg,
-    var(--accent-orange) 0%,
-    var(--accent-blue) 100%
-  );
-  animation: progressLine 2s ease-out forwards;
-  box-shadow: 0 0 10px var(--accent-orange);
-}
-
-.timeline-line::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    var(--accent-blue) 0%,
-    rgba(30, 79, 255, 0.3) 100%
-  );
-  animation: pulse 3s ease-in-out infinite;
-}
-
-@keyframes progressLine {
-  0% {
-    height: 0%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    height: 100%;
-    opacity: 1;
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
-/* Content Column */
-.content-column {
-  padding-left: 40px;
-}
-
-.event-card {
-  background: linear-gradient(145deg, #0a1647 0%, #020b2c 100%);
-  clip-path: polygon(
-    0 0,
-    calc(100% - 25px) 0,
-    100% 25px,
-    100% 100%,
-    25px 100%,
-    0 calc(100% - 25px)
-  );
-  padding: 20px 35px 20px 20px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow:
-    0 6px 24px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  max-width: 800px;
-}
-
-.event-card::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 70%
-  );
-  animation: rotateWhite 8s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.event-card::after {
-  content: "";
-  position: absolute;
-  bottom: -30%;
-  right: -30%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.05) 0%,
-    transparent 60%
-  );
-  animation: pulseWhite 4s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.event-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 0 2px var(--accent-blue),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: var(--accent-blue);
-}
-
-.event-card:hover::before {
-  opacity: 1;
-}
-
-.event-card:hover::after {
-  opacity: 1;
-}
-
-.event-year {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.15);
-  color: var(--text-white);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 15px;
-  letter-spacing: 1px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.event-title {
-  font-family: "Sora", sans-serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--text-white);
-  margin-bottom: 15px;
-  line-height: 1.3;
-}
-
-.event-description {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.event-image {
-  margin-top: 20px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 25px var(--shadow-dark);
-}
-
-.event-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.event-card:hover .event-image img {
-  transform: scale(1.05);
-}
-
-/* Explore Button */
-.explore-button {
-  display: inline-block;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(255, 255, 255, 0.1)
-  );
-  color: var(--text-white);
-  padding: 10px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 25px;
-  font-family: "Sora", sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
-}
-
-.explore-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s ease;
-}
-
-.explore-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0.15)
-  );
-  border-color: rgba(255, 255, 255, 0.6);
-}
-
-.explore-button:hover::before {
-  left: 100%;
-}
-
-.explore-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
-}
-
-/* CSS Drawn Event Icons */
-.event-icon-right {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 40px;
-  height: 40px;
-  opacity: 0.3;
-  transition: all 0.3s ease;
-}
-
-.event-card:hover .event-icon-right {
-  opacity: 0.8;
-  transform: scale(1.1);
-}
-
-/* White Animation Effects */
-.event-card::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.1) 0%,
-    transparent 70%
-  );
-  animation: rotateWhite 8s linear infinite;
-  pointer-events: none;
-}
-
-.event-card::after {
-  content: "";
-  position: absolute;
-  bottom: -30%;
-  right: -30%;
-  width: 150%;
-  height: 150%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.05) 0%,
-    transparent 60%
-  );
-  animation: pulseWhite 4s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes rotateWhite {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulseWhite {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.3;
-  }
-  100% {
-    transform: scale(1.2);
-    opacity: 0.1;
-  }
-}
-
-/* Opening Event Icon - Rocket */
-.icon-rocket::before {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 20px;
-  background: var(--accent-orange);
-  border-radius: 4px 4px 0 0;
-  top: 5px;
-  left: 16px;
-  transform: rotate(-45deg);
-}
-
-.icon-rocket::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid var(--accent-orange);
-  bottom: 8px;
-  left: 12px;
-  transform: rotate(45deg);
-}
-
-/* Hackathon Icon - Code */
-.icon-code::before {
-  content: "</>";
-  position: absolute;
-  font-family: "Courier New", monospace;
-  font-size: 18px;
-  font-weight: bold;
-  color: var(--accent-blue);
-  top: 8px;
-  left: 8px;
-  text-shadow: 0 0 10px rgba(30, 79, 255, 0.5);
-}
-
-/* Lightbulb Icon */
-.icon-lightbulb::before {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: var(--accent-orange);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  top: 5px;
-  left: 10px;
-  box-shadow: 0 0 15px rgba(242, 78, 30, 0.6);
-}
-
-.icon-lightbulb::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 8px;
-  background: var(--accent-orange);
-  bottom: 5px;
-  left: 19px;
-}
-
-/* Trophy Icon */
-.icon-trophy::before {
-  content: "";
-  position: absolute;
-  width: 25px;
-  height: 8px;
-  background: var(--accent-orange);
-  border-radius: 4px 4px 0 0;
-  top: 8px;
-  left: 7px;
-}
-
-.icon-trophy::after {
-  content: "";
-  position: absolute;
-  width: 15px;
-  height: 12px;
-  background: var(--accent-blue);
-  border-radius: 0 0 8px 8px;
-  bottom: 8px;
-  left: 12px;
-}
-
-/* Cup handles */
-.icon-trophy span:nth-child(1) {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 6px;
-  border: 2px solid var(--accent-orange);
-  border-radius: 4px;
-  top: 10px;
-  left: 2px;
-  border-right: none;
-}
-
-.icon-trophy span:nth-child(2) {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 6px;
-  border: 2px solid var(--accent-orange);
-  border-radius: 4px;
-  top: 10px;
-  right: 2px;
-  border-left: none;
-}
-
-/* Coming Soon Section */
-.coming-soon-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-}
-
-.coming-soon-card {
-  background: linear-gradient(
-    135deg,
-    rgba(30, 79, 255, 0.1) 0%,
-    rgba(242, 78, 30, 0.1) 100%
-  );
-  border: 2px dashed var(--accent-orange);
-  border-radius: 20px;
-  padding: 60px 40px;
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 10px 30px var(--shadow-dark);
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.coming-soon-card.fade-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.coming-soon-card:hover {
-  border-color: var(--accent-blue);
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px var(--shadow-dark);
-}
-
-.coming-soon-icon {
-  font-size: 4rem;
-  color: var(--accent-orange);
-  margin-bottom: 20px;
-}
-
-.coming-soon-title {
-  font-family: "Sora", sans-serif;
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-white);
-  margin-bottom: 15px;
-}
-
-.coming-soon-description {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .page-header h1 {
-    font-size: 2.5rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-
-  .timeline-item {
-    grid-template-columns: 60px 30px 1fr;
-    gap: 0;
-  }
-
-  .event-icon {
-    width: 50px;
-    height: 50px;
-  }
-
-  .event-icon i {
-    font-size: 1.2rem;
-  }
-
-  .timeline-dot {
-    width: 16px;
-    height: 16px;
-    border-width: 3px;
-  }
-
-  .content-column {
-    padding-left: 30px;
-  }
-
-  .event-card {
-    padding: 20px;
-  }
-
-  .event-title {
-    font-size: 1.5rem;
-  }
-
-  .event-description {
-    font-size: 1rem;
-  }
-
-  .coming-soon-card {
-    padding: 40px 30px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-header {
-    padding: 60px 15px 40px;
-  }
-
-  .page-header h1 {
-    font-size: 2rem;
-  }
-
-  .timeline-item {
-    grid-template-columns: 50px 25px 1fr;
-  }
-
-  .content-column {
-    padding-left: 20px;
-  }
-
-  .event-card {
-    padding: 15px;
-  }
-
-  .event-title {
-    font-size: 1.3rem;
-  }
-
-  .coming-soon-card {
-    padding: 30px 20px;
-  }
-
-  .coming-soon-icon {
-    font-size: 3rem;
-  }
-}
-
+        /* CSS Variables */
+        :root {
+            --bg-main: #020b2c;
+            --text-white: #ffffff;
+            --accent-orange: #f24e1e;
+            --accent-blue: #1e4fff;
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+            --shadow-light: rgba(30, 79, 255, 0.1);
+        }
+
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Manrope", "Sora", sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header styles (embedded) */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(2, 11, 44, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 79, 255, 0.4);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-white);
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+        }
+        .logo-a {
+            position: relative;
+            display: inline-block;
+            color: var(--text-white);
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            margin-right: 2px;
+        }
+        .logo-a::before {
+            content: '';
+            position: absolute;
+            left: 27%;
+            top: 43%;
+            width: 46%;
+            height: 12%;
+            background: rgba(2, 11, 44, 0.94);
+            transform: rotate(-1deg);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+        .logo-a::after {
+            content: '';
+            position: absolute;
+            left: -6%;
+            top: 58%;
+            width: 116%;
+            height: 14%;
+            background: var(--accent-orange);
+            transform: rotate(-27deg);
+            border-radius: 6px;
+            pointer-events: none;
+        }
+        .logo-rest {
+            color: var(--text-white);
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-orange);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--accent-orange);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text-white);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        @media (max-width: 780px) {
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                right: 16px;
+                flex-direction: column;
+                background: rgba(2, 11, 44, 0.98);
+                padding: 1.5rem;
+                border: 1px solid rgba(30, 79, 255, 0.35);
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+                transform: scale(0.9);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+            .nav-links.open {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: auto;
+            }
+        }
+
+        /* Page Container */
+        .page-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 0; /* header is sticky, content starts after it */
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, var(--bg-main) 0%, #0a1647 100%);
+            margin-top: 0; /* no extra margin, header is above */
+        }
+
+        .page-header h1 {
+            font-family: "Sora", sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            position: relative;
+        }
+
+        .page-header h1 span {
+            color: var(--accent-orange);
+        }
+
+        .page-header h1::after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-orange);
+            border-radius: 2px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 0 20px 80px;
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+        }
+
+        .section-title {
+            font-family: "Sora", sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent-orange);
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title span {
+            color: var(--accent-orange);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-blue);
+            border-radius: 2px;
+        }
+
+        /* Timeline Container */
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            position: relative;
+        }
+
+        /* Timeline Item - 3 Column Grid */
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 80px 40px 1fr;
+            gap: 0;
+            align-items: start;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Icon Column */
+        .icon-column {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 8px;
+        }
+
+        .event-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-orange), #ff6b35);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 25px var(--shadow-dark);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px var(--shadow-dark);
+        }
+
+        .event-icon i {
+            font-size: 1.5rem;
+            color: var(--text-white);
+        }
+
+        /* Timeline Column */
+        .timeline-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 4px solid var(--bg-main);
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 0 4px var(--accent-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.2);
+        }
+
+        .timeline-line {
+            width: 4px;
+            background-color: var(--accent-blue);
+            flex: 1;
+            margin-top: 8px;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-line::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, var(--accent-orange) 0%, var(--accent-blue) 100%);
+            animation: progressLine 2s ease-out forwards;
+            box-shadow: 0 0 10px var(--accent-orange);
+        }
+
+        .timeline-line::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-blue) 0%, rgba(30, 79, 255, 0.3) 100%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes progressLine {
+            0% { height: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            100% { height: 100%; opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Content Column */
+        .content-column {
+            padding-left: 40px;
+        }
+
+        .event-card {
+            background: linear-gradient(145deg, #0a1647 0%, #020b2c 100%);
+            clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px));
+            padding: 20px 35px 20px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 800px;
+        }
+
+        .event-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotateWhite 8s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .event-card::after {
+            content: "";
+            position: absolute;
+            bottom: -30%;
+            right: -30%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+            animation: pulseWhite 4s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .event-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--accent-blue), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-blue);
+        }
+
+        .event-year {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-white);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .event-title {
+            font-family: "Sora", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .event-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .event-image {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px var(--shadow-dark);
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover .event-image img {
+            transform: scale(1.05);
+        }
+
+        /* Explore Button */
+        .explore-button {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+            color: var(--text-white);
+            padding: 10px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 25px;
+            font-family: "Sora", sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .explore-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .explore-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.15));
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .explore-button:hover::before {
+            left: 100%;
+        }
+
+        /* CSS Drawn Event Icons */
+        .event-icon-right {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover .event-icon-right {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        /* White Animation Effects */
+        @keyframes rotateWhite {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseWhite {
+            0% { transform: scale(0.8); opacity: 0.3; }
+            100% { transform: scale(1.2); opacity: 0.1; }
+        }
+
+        /* Opening Event Icon - Rocket */
+        .icon-rocket::before {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: var(--accent-orange);
+            border-radius: 4px 4px 0 0;
+            top: 5px;
+            left: 16px;
+            transform: rotate(-45deg);
+        }
+
+        .icon-rocket::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 12px solid var(--accent-orange);
+            bottom: 8px;
+            left: 12px;
+            transform: rotate(45deg);
+        }
+
+        /* Hackathon Icon - Code */
+        .icon-code::before {
+            content: "</>";
+            position: absolute;
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-blue);
+            top: 8px;
+            left: 8px;
+            text-shadow: 0 0 10px rgba(30, 79, 255, 0.5);
+        }
+
+        /* Lightbulb Icon */
+        .icon-lightbulb::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-orange);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 5px;
+            left: 10px;
+            box-shadow: 0 0 15px rgba(242, 78, 30, 0.6);
+        }
+
+        .icon-lightbulb::after {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: var(--accent-orange);
+            bottom: 5px;
+            left: 19px;
+        }
+
+        /* Trophy Icon */
+        .icon-trophy::before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 8px;
+            background: var(--accent-orange);
+            border-radius: 4px 4px 0 0;
+            top: 8px;
+            left: 7px;
+        }
+
+        .icon-trophy::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 12px;
+            background: var(--accent-blue);
+            border-radius: 0 0 8px 8px;
+            bottom: 8px;
+            left: 12px;
+        }
+
+        /* Cup handles */
+        .icon-trophy span:nth-child(1) {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 6px;
+            border: 2px solid var(--accent-orange);
+            border-radius: 4px;
+            top: 10px;
+            left: 2px;
+            border-right: none;
+        }
+
+        .icon-trophy span:nth-child(2) {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 6px;
+            border: 2px solid var(--accent-orange);
+            border-radius: 4px;
+            top: 10px;
+            right: 2px;
+            border-left: none;
+        }
+
+        /* Coming Soon Section */
+        .coming-soon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .coming-soon-card {
+            background: linear-gradient(135deg, rgba(30, 79, 255, 0.1) 0%, rgba(242, 78, 30, 0.1) 100%);
+            border: 2px dashed var(--accent-orange);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 30px var(--shadow-dark);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .coming-soon-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .coming-soon-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-dark);
+        }
+
+        .coming-soon-icon {
+            font-size: 4rem;
+            color: var(--accent-orange);
+            margin-bottom: 20px;
+        }
+
+        .coming-soon-title {
+            font-family: "Sora", sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 15px;
+        }
+
+        .coming-soon-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Footer styles (same as Home) */
+        .site-footer {
+            background: #020b2c;
+            border-top: 1px solid rgba(30, 79, 255, 0.4);
+            padding: 3rem 1.5rem 1rem;
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .footer-about h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            color: #f24e1e;
+            margin-bottom: 1rem;
+        }
+        .footer-about p {
+            color: #b0c6f0;
+            line-height: 1.6;
+        }
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        .footer-links h4::after, .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #f24e1e;
+        }
+        .footer-links ul, .footer-contact ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+        .footer-links a {
+            color: #b0c6f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #f24e1e;
+        }
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .social-links a {
+            color: #fff;
+            font-size: 1.8rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #f24e1e;
+        }
+        .footer-contact p {
+            color: #b0c6f0;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .footer-container { grid-template-columns: 1fr; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .timeline-item { grid-template-columns: 60px 30px 1fr; }
+            .event-icon { width: 50px; height: 50px; }
+            .event-icon i { font-size: 1.2rem; }
+            .timeline-dot { width: 16px; height: 16px; border-width: 3px; }
+            .content-column { padding-left: 30px; }
+            .event-card { padding: 20px; }
+            .event-title { font-size: 1.5rem; }
+            .event-description { font-size: 1rem; }
+            .coming-soon-card { padding: 40px 30px; }
+        }
+
+        @media (max-width: 480px) {
+            .page-header { padding: 60px 15px 40px; }
+            .page-header h1 { font-size: 2rem; }
+            .timeline-item { grid-template-columns: 50px 25px 1fr; }
+            .content-column { padding-left: 20px; }
+            .event-card { padding: 15px; }
+            .event-title { font-size: 1.3rem; }
+            .coming-soon-card { padding: 30px 20px; }
+            .coming-soon-icon { font-size: 3rem; }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+    <!-- Sticky Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a class="brand" href="Home.html">
+                <span class="logo" aria-label="AuraX">
+                    <span class="logo-a">A</span>
+                    <span class="logo-rest">uraX</span>
+                </span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+            <nav class="nav-links" id="primary-nav">
+                <a href="home.html">Home</a>
+                <a href="Events.html">Events</a>
+                <a href="Team.html">Team</a>
+                <a href="AboutUs.html">AboutUs</a>
+                <a href="ContactUs.html">ContactUs</a>
+            </nav>
+        </div>
+    </header>
+
     <div class="page-container">
-      <header class="page-header">
-        <h1><span>A</span>URAX EVENTS TIMELINE</h1>
-      </header>
+        <header class="page-header">
+            <h1><span>A</span>URAX EVENTS TIMELINE</h1>
+        </header>
 
-      <main class="main-content">
-        <!-- Beginner Cohort Timeline -->
-        <section class="timeline-section">
-          <h2 class="section-title">Beginner Cohort</h2>
-          <div class="timeline-container">
-            <div class="timeline-item fade-in">
-              <div class="icon-column">
-                <div class="event-icon">
-                  <i class="fas fa-rocket"></i>
+        <main class="main-content">
+            <!-- Beginner Cohort Timeline -->
+            <section class="timeline-section">
+                <h2 class="section-title">Beginner Cohort</h2>
+                <div class="timeline-container">
+                    <div class="timeline-item fade-in">
+                        <div class="icon-column">
+                            <div class="event-icon"><i class="fas fa-rocket"></i></div>
+                        </div>
+                        <div class="timeline-column">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                        </div>
+                        <div class="content-column">
+                            <div class="event-card">
+                                <div class="event-icon-right icon-rocket"></div>
+                                <span class="event-year">2026</span>
+                                <h3 class="event-title">Opening Event</h3>
+                                <p class="event-description">The first gathering of the Beginner Cohort to kick off the journey with orientation and team building activities.</p>
+                                <div class="event-image"><img src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Opening+Event" alt="Opening Event"></div>
+                                <button class="explore-button" onclick="exploreEvent('opening-event')">Explore</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="icon-column">
+                            <div class="event-icon"><i class="fas fa-code"></i></div>
+                        </div>
+                        <div class="timeline-column">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                        </div>
+                        <div class="content-column">
+                            <div class="event-card">
+                                <div class="event-icon-right icon-code"></div>
+                                <span class="event-year">2026</span>
+                                <h3 class="event-title">Hackathon 1</h3>
+                                <p class="event-description">First coding hackathon to explore real-world projects and develop fundamental coding skills.</p>
+                                <div class="event-image"><img src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Hackathon+1" alt="Hackathon 1"></div>
+                                <button class="explore-button" onclick="exploreEvent('hackathon-1')">Explore</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="icon-column">
+                            <div class="event-icon"><i class="fas fa-lightbulb"></i></div>
+                        </div>
+                        <div class="timeline-column">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line"></div>
+                        </div>
+                        <div class="content-column">
+                            <div class="event-card">
+                                <div class="event-icon-right icon-lightbulb"></div>
+                                <span class="event-year">2026</span>
+                                <h3 class="event-title">Hackathon 2</h3>
+                                <p class="event-description">Second hackathon to implement advanced ideas and collaborative solutions.</p>
+                                <div class="event-image"><img src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Hackathon+2" alt="Hackathon 2"></div>
+                                <button class="explore-button" onclick="exploreEvent('hackathon-2')">Explore</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item fade-in">
+                        <div class="icon-column">
+                            <div class="event-icon"><i class="fas fa-trophy"></i></div>
+                        </div>
+                        <div class="timeline-column">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="content-column">
+                            <div class="event-card">
+                                <div class="event-icon-right icon-trophy"><span></span><span></span></div>
+                                <span class="event-year">2026</span>
+                                <h3 class="event-title">Closing Event</h3>
+                                <p class="event-description">Final celebration and recognition of participants' achievements and project showcases.</p>
+                                <div class="event-image"><img src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Closing+Event" alt="Closing Event"></div>
+                                <button class="explore-button" onclick="exploreEvent('closing-event')">Explore</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="timeline-column">
-                <div class="timeline-dot"></div>
-                <div class="timeline-line"></div>
-              </div>
-              <div class="content-column">
-                <div class="event-card">
-                  <div class="event-icon-right icon-rocket"></div>
-                  <span class="event-year">2026</span>
-                  <h3 class="event-title">Opening Event</h3>
-                  <p class="event-description">
-                    The first gathering of the Beginner Cohort to kick off the
-                    journey with orientation and team building activities.
-                  </p>
-                  <div class="event-image">
-                    <img
-                      src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Opening+Event"
-                      alt="Opening Event"
-                    />
-                  </div>
-                  <button
-                    class="explore-button"
-                    onclick="exploreEvent('opening-event')"
-                  >
-                    Explore
-                  </button>
-                </div>
-              </div>
-            </div>
+            </section>
 
-            <div class="timeline-item fade-in">
-              <div class="icon-column">
-                <div class="event-icon">
-                  <i class="fas fa-code"></i>
+            <!-- Advanced Cohort Section -->
+            <section class="timeline-section">
+                <h2 class="section-title">Advanced Cohort</h2>
+                <div class="coming-soon-container">
+                    <div class="coming-soon-card fade-in">
+                        <div class="coming-soon-icon"><i class="fas fa-clock"></i></div>
+                        <h3 class="coming-soon-title">Coming Soon</h3>
+                        <p class="coming-soon-description">After completing the Beginner Cohort, participants will progress to the Advanced Cohort. Advanced events and timeline will be announced soon. Stay tuned for more updates!</p>
+                    </div>
                 </div>
-              </div>
-              <div class="timeline-column">
-                <div class="timeline-dot"></div>
-                <div class="timeline-line"></div>
-              </div>
-              <div class="content-column">
-                <div class="event-card">
-                  <div class="event-icon-right icon-code"></div>
-                  <span class="event-year">2026</span>
-                  <h3 class="event-title">Hackathon 1</h3>
-                  <p class="event-description">
-                    First coding hackathon to explore real-world projects and
-                    develop fundamental coding skills.
-                  </p>
-                  <div class="event-image">
-                    <img
-                      src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Hackathon+1"
-                      alt="Hackathon 1"
-                    />
-                  </div>
-                  <button
-                    class="explore-button"
-                    onclick="exploreEvent('hackathon-1')"
-                  >
-                    Explore
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline-item fade-in">
-              <div class="icon-column">
-                <div class="event-icon">
-                  <i class="fas fa-lightbulb"></i>
-                </div>
-              </div>
-              <div class="timeline-column">
-                <div class="timeline-dot"></div>
-                <div class="timeline-line"></div>
-              </div>
-              <div class="content-column">
-                <div class="event-card">
-                  <div class="event-icon-right icon-lightbulb"></div>
-                  <span class="event-year">2026</span>
-                  <h3 class="event-title">Hackathon 2</h3>
-                  <p class="event-description">
-                    Second hackathon to implement advanced ideas and
-                    collaborative solutions.
-                  </p>
-                  <div class="event-image">
-                    <img
-                      src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Hackathon+2"
-                      alt="Hackathon 2"
-                    />
-                  </div>
-                  <button
-                    class="explore-button"
-                    onclick="exploreEvent('hackathon-2')"
-                  >
-                    Explore
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="timeline-item fade-in">
-              <div class="icon-column">
-                <div class="event-icon">
-                  <i class="fas fa-trophy"></i>
-                </div>
-              </div>
-              <div class="timeline-column">
-                <div class="timeline-dot"></div>
-              </div>
-              <div class="content-column">
-                <div class="event-card">
-                  <div class="event-icon-right icon-trophy">
-                    <span></span><span></span>
-                  </div>
-                  <span class="event-year">2026</span>
-                  <h3 class="event-title">Closing Event</h3>
-                  <p class="event-description">
-                    Final celebration and recognition of participants'
-                    achievements and project showcases.
-                  </p>
-                  <div class="event-image">
-                    <img
-                      src="https://via.placeholder.com/300x200/1E4FFF/FFFFFF?text=Closing+Event"
-                      alt="Closing Event"
-                    />
-                  </div>
-                  <button
-                    class="explore-button"
-                    onclick="exploreEvent('closing-event')"
-                  >
-                    Explore
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Advanced Cohort Section -->
-        <section class="timeline-section">
-          <h2 class="section-title">Advanced Cohort</h2>
-          <div class="coming-soon-container">
-            <div class="coming-soon-card fade-in">
-              <div class="coming-soon-icon">
-                <i class="fas fa-clock"></i>
-              </div>
-              <h3 class="coming-soon-title">Coming Soon</h3>
-              <p class="coming-soon-description">
-                After completing the Beginner Cohort, participants will progress
-                to the Advanced Cohort. Advanced events and timeline will be
-                announced soon. Stay tuned for more updates!
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
+            </section>
+        </main>
     </div>
 
-    <script src="js/events.js"></script>
-  </body>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>AuraX</h3>
+                <p>Coding and Innovation Hub at Mekelle University. Fueling the next generation of coders and innovators.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Events.html">Events</a></li>
+                    <li><a href="Team.html">Team</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                    <li><a href="ContactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Connect</h4>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fab fa-telegram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fab fa-github"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+                <p>Email: auraxhub2026@gmail.com</p>
+                <p>Phone: +251 9 87 97 33 93</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AuraX. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header toggle
+        const toggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        }
+
+        // Dummy explore function
+        function exploreEvent(eventId) {
+            alert('Explore ' + eventId);
+        }
+    </script>
+</body>
 </html>

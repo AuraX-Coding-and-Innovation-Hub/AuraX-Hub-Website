@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang=
-en>
+<html lang="en">
 <head>
-    <meta charset=UTF-8>
-    <meta name=viewport content=width=device-width
-initial-scale=1.0>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AuraX - Coding and Innovation Hub</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -18,12 +18,162 @@ initial-scale=1.0>
             background-color: #020B2C;
             color: #FFFFFF;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .main-container {
+        /* Header styles (embedded from Header.html) */
+        :root {
+            --nav-bg: #020B2C;
+            --link: #FFFFFF;
+            --accent: #F24E1E;
+            --hover: #1E4FFF;
+        }
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(2, 11, 44, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 79, 255, 0.4);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
             display: flex;
-            min-height: 100vh;
-            padding: 0 5%;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--link);
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+        }
+        .logo-a {
+            position: relative;
+            display: inline-block;
+            color: var(--link);
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            margin-right: 2px;
+        }
+        .logo-a::before {
+            content: '';
+            position: absolute;
+            left: 27%;
+            top: 43%;
+            width: 46%;
+            height: 12%;
+            background: rgba(2, 11, 44, 0.94);
+            transform: rotate(-1deg);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+        .logo-a::after {
+            content: '';
+            position: absolute;
+            left: -6%;
+            top: 58%;
+            width: 116%;
+            height: 14%;
+            background: var(--accent);
+            transform: rotate(-27deg);
+            border-radius: 6px;
+            pointer-events: none;
+        }
+        .logo-rest {
+            color: var(--link);
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: var(--link);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--link);
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        @media (max-width: 780px) {
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                right: 16px;
+                flex-direction: column;
+                background: rgba(2, 11, 44, 0.98);
+                padding: 1.5rem;
+                border: 1px solid rgba(30, 79, 255, 0.35);
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+                transform: scale(0.9);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+            .nav-links.open {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: auto;
+            }
+        }
+
+        /* Main content adjustments */
+        .main-container {
+            flex: 1;
+            display: flex;
+            padding: 80px 5% 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .left-section {
@@ -50,7 +200,8 @@ initial-scale=1.0>
             font-size: 1.2rem;
             line-height: 1.6;
             margin-bottom: 40px;
-            color: #94A3B8; font-weight: 400;
+            color: #94A3B8;
+            font-weight: 400;
         }
 
         .button-group {
@@ -108,7 +259,7 @@ initial-scale=1.0>
         }
 
         .section-title {
-            font-size: 1.8rem; letter-spacing: 3px;
+            font-size: 1.8rem;
             font-weight: 800;
             margin-bottom: 30px;
             color: #1E4FFF;
@@ -155,7 +306,9 @@ initial-scale=1.0>
         }
 
         .project-title {
-            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             font-weight: 800;
             margin-bottom: 10px;
             color: #FFFFFF;
@@ -164,7 +317,8 @@ initial-scale=1.0>
         .project-description {
             font-size: 0.85rem;
             line-height: 1.5;
-            color: #94A3B8; font-weight: 400;
+            color: #94A3B8;
+            font-weight: 400;
             margin-bottom: 12px;
         }
 
@@ -172,7 +326,9 @@ initial-scale=1.0>
             color: #F24E1E;
             text-decoration: none;
             font-weight: 800;
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
             transition: all 0.3s ease;
@@ -180,16 +336,6 @@ initial-scale=1.0>
 
         .project-link:hover {
             color: #FFFFFF;
-            transform: translateX(5px);
-        }
-
-        .project-link::after {
-            content: '';
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .project-link:hover::after {
             transform: translateX(5px);
         }
 
@@ -209,15 +355,15 @@ initial-scale=1.0>
         }
 
         .stat-value {
-            font-size: 1.8rem; letter-spacing: 3px;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #F24E1E;
             margin-bottom: 5px;
         }
 
         .stat-label {
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
-            color: #94A3B8; font-weight: 400;
+            font-size: 0.8rem;
+            color: #94A3B8;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -227,8 +373,8 @@ initial-scale=1.0>
         }
 
         .developer-title {
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
-            color: #94A3B8; font-weight: 400;
+            font-size: 0.8rem;
+            color: #94A3B8;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -243,7 +389,7 @@ initial-scale=1.0>
             align-items: center;
             justify-content: center;
             margin: 0 auto;
-            font-size: 1.8rem; letter-spacing: 3px;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #FFFFFF;
         }
@@ -273,25 +419,109 @@ initial-scale=1.0>
             border-radius: 50%;
         }
 
+        /* Footer styles */
+        .site-footer {
+            background: #020b2c;
+            border-top: 1px solid rgba(30, 79, 255, 0.4);
+            padding: 3rem 1.5rem 1rem;
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .footer-about h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            color: #f24e1e;
+            margin-bottom: 1rem;
+        }
+        .footer-about p {
+            color: #b0c6f0;
+            line-height: 1.6;
+        }
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        .footer-links h4::after, .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #f24e1e;
+        }
+        .footer-links ul, .footer-contact ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+        .footer-links a {
+            color: #b0c6f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #f24e1e;
+        }
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .social-links a {
+            color: #fff;
+            font-size: 1.8rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #f24e1e;
+        }
+        .footer-contact p {
+            color: #b0c6f0;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
-                padding: 20px;
+                padding: 80px 20px 2rem;
             }
-
             .left-section, .right-section {
                 max-width: 100%;
                 padding: 0;
             }
-
             .main-heading {
                 font-size: 2.5rem;
             }
-
             .button-group {
                 flex-direction: column;
             }
-
             .stats-section {
                 flex-direction: column;
                 gap: 20px;
@@ -300,71 +530,134 @@ initial-scale=1.0>
     </style>
 </head>
 <body>
-    <div class=circuit-bg id=circuitBg></div>
+    <!-- Sticky Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a class="brand" href="Home.html">
+                <span class="logo" aria-label="AuraX">
+                    <span class="logo-a">A</span>
+                    <span class="logo-rest">uraX</span>
+                </span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+            <nav class="nav-links" id="primary-nav">
+                <a href="Home.html">Home</a>
+                <a href="Events.html">Events</a>
+                <a href="Team.html">Team</a>
+                <a href="AboutUs.html">AboutUs</a>
+                <a href="ContactUs.html">ContactUs</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class=main-container>
-        <div class=left-section>
-            <h1 class=main-heading>Fueling the Next Generation of Coders and Innovators</h1>
-            <p class=main-description>
+    <div class="circuit-bg" id="circuitBg"></div>
+    
+    <div class="main-container">
+        <div class="left-section">
+            <h1 class="main-heading">Fueling the Next Generation of Coders and Innovators</h1>
+            <p class="main-description">
                 AuraX is a dynamic hub where creativity meets technology. We bring together passionate developers, 
                 designers, and innovators to collaborate on cutting-edge projects that push the boundaries of what's possible. 
                 Join us in shaping the future of technology.
             </p>
-            <div class=button-group>
-                <button class=btn
-btn-primary>EXPLORE PROJECTS</button>
-                <button class=btn
-btn-secondary>JOIN US</button>
+            <div class="button-group">
+                <button class="btn btn-primary">EXPLORE PROJECTS</button>
+                <button class="btn btn-secondary">JOIN US</button>
             </div>
         </div>
 
-        <div class=right-section>
-            <div class=featured-projects>
-                <h2 class=section-title>Featured Projects</h2>
-                <div class=project-cards>
-                    <div class=project-card>
-                        <h3 class=project-title>CAMPUS GUIDE AI</h3>
-                        <p class=project-description>
+        <div class="right-section">
+            <div class="featured-projects">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="project-cards">
+                    <div class="project-card">
+                        <h3 class="project-title">CAMPUS GUIDE AI</h3>
+                        <p class="project-description">
                             An intelligent navigation system that helps students and visitors explore campus facilities 
                             with real-time directions and interactive maps powered by artificial intelligence.
                         </p>
-                        <a href=# class=project-link>LEARN MORE</a>
+                        <a href="#" class="project-link">LEARN MORE</a>
                     </div>
 
-                    <div class=project-card>
-                        <h3 class=project-title>SENSOR ARRAY AI</h3>
-                        <p class=project-description>
+                    <div class="project-card">
+                        <h3 class="project-title">SENSOR ARRAY AI</h3>
+                        <p class="project-description">
                             Advanced sensor network that collects and analyzes environmental data, providing insights 
                             for smart campus management and sustainability initiatives.
                         </p>
-                        <a href=# class=project-link>LEARN MORE</a>
+                        <a href="#" class="project-link">LEARN MORE</a>
                     </div>
 
-                    <div class=project-card>
-                        <h3 class=project-title>BLOCKCHAIN NETWORK</h3>
-                        <p class=project-description>
+                    <div class="project-card">
+                        <h3 class="project-title">BLOCKCHAIN NETWORK</h3>
+                        <p class="project-description">
                             Decentralized platform for secure academic credential verification and transparent 
                             project collaboration using blockchain technology.
                         </p>
-                        <a href=# class=project-link>LEARN MORE</a>
+                        <a href="#" class="project-link">LEARN MORE</a>
                     </div>
                 </div>
             </div>
 
-            <div class=stats-section>
-                <div class=stat-item>
-                    <div class=stat-value>12</div>
-                    <div class=stat-label>Active Projects</div>
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Active Projects</div>
                 </div>
-                <div class=featured-developer>
-                    <div class=developer-title>Featured Developer</div>
-                    <div class=developer-placeholder>TBD</div>
+                <div class="featured-developer">
+                    <div class="developer-title">Featured Developer</div>
+                    <div class="developer-placeholder">TBD</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>AuraX</h3>
+                <p>Coding and Innovation Hub at Mekelle University. Fueling the next generation of coders and innovators.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Events.html">Events</a></li>
+                    <li><a href="Team.html">Team</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                    <li><a href="ContactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Connect</h4>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fab fa-telegram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fab fa-github"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+                <p>Email: auraxhub2026@gmail.com</p>
+                <p>Phone: +251 9 87 97 33 93</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AuraX. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script>
+        // Header toggle
+        const toggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        }
+
+        // Circuit background
         function createCircuitBackground() {
             const circuitBg = document.getElementById('circuitBg');
             const numLines = 15;
@@ -377,10 +670,10 @@ btn-secondary>JOIN US</button>
                 const isHorizontal = Math.random() > 0.5;
                 const length = Math.random() * 200 + 50;
                 
-                line.style.width = isHorizontal ? ${length}px : '2px';
-                line.style.height = isHorizontal ? '2px' : ${length}px;
-                line.style.left = ${Math.random() * 100}%;
-                line.style.top = ${Math.random() * 100}%;
+                line.style.width = isHorizontal ? `${length}px` : `2px`;
+                line.style.height = isHorizontal ? '2px' : `${length}px`;
+                line.style.left = `${Math.random() * 100}%`;
+                line.style.top = `${Math.random() * 100}%`;
                 
                 circuitBg.appendChild(line);
             }
@@ -388,8 +681,8 @@ btn-secondary>JOIN US</button>
             for (let i = 0; i < numDots; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'circuit-dot';
-                dot.style.left = ${Math.random() * 100}%;
-                dot.style.top = ${Math.random() * 100}%;
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.top = `${Math.random() * 100}%`;
                 
                 circuitBg.appendChild(dot);
             }
@@ -397,6 +690,7 @@ btn-secondary>JOIN US</button>
 
         document.addEventListener('DOMContentLoaded', createCircuitBackground);
 
+        // Card hover effects
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateX(10px) scale(1.02)';
@@ -407,6 +701,7 @@ btn-secondary>JOIN US</button>
             });
         });
 
+        // Button logs
         document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 if (this.classList.contains('btn-primary')) {
@@ -419,9 +714,3 @@ btn-secondary>JOIN US</button>
     </script>
 </body>
 </html>
-
-
-
-
-
-

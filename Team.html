@@ -1,338 +1,597 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AuraX · Core Team</title>
-  <!-- Font Awesome 6 (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <style>
-    /* ----- global reset (for this isolated section) ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraX · Core Team</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        /* ----- global reset ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-image: linear-gradient(rgba(2, 11, 44, 0.9), rgba(2, 11, 44, 0.9)), url('assets/bg-contact.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      min-height: 100vh;
-      padding: clamp(1.5rem, 4vw, 4rem);
-      color: #FFFFFF;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: linear-gradient(rgba(2, 11, 44, 0.9), rgba(2, 11, 44, 0.9)), url('assets/bg-contact.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* team section container */
-    .team-section {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      color: #FFFFFF; /* white text */
-    }
+        /* Header styles (copied from Home) */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(2, 11, 44, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(30, 79, 255, 0.4);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+        }
+        .logo-a {
+            position: relative;
+            display: inline-block;
+            color: #FFFFFF;
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            margin-right: 2px;
+        }
+        .logo-a::before {
+            content: '';
+            position: absolute;
+            left: 27%;
+            top: 43%;
+            width: 46%;
+            height: 12%;
+            background: rgba(2, 11, 44, 0.94);
+            transform: rotate(-1deg);
+            border-radius: 3px;
+            pointer-events: none;
+        }
+        .logo-a::after {
+            content: '';
+            position: absolute;
+            left: -6%;
+            top: 58%;
+            width: 116%;
+            height: 14%;
+            background: #F24E1E;
+            transform: rotate(-27deg);
+            border-radius: 6px;
+            pointer-events: none;
+        }
+        .logo-rest {
+            color: #FFFFFF;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: #F24E1E;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #F24E1E;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: #FFFFFF;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        @media (max-width: 780px) {
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .nav-links {
+                position: fixed;
+                top: 64px;
+                right: 16px;
+                flex-direction: column;
+                background: rgba(2, 11, 44, 0.98);
+                padding: 1.5rem;
+                border: 1px solid rgba(30, 79, 255, 0.35);
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+                transform: scale(0.9);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+            .nav-links.open {
+                opacity: 1;
+                transform: scale(1);
+                pointer-events: auto;
+            }
+        }
 
-    /* ----- header with orange slash through "BUILDERS" ----- */
-    .team-header {
-      margin-bottom: 3.5rem;
-      text-align: center;
-    }
+        /* main team section */
+        .team-section {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 80px 1.5rem 2rem;
+            color: #FFFFFF;
+        }
 
-    .team-header h2 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #FFFFFF;
-    }
+        /* header with orange slash */
+        .team-header {
+            margin-bottom: 3.5rem;
+            text-align: center;
+        }
 
-    .team-header h2 span {
-      color: #1E4FFF; /* light blue for the word "BUILDERS" */
-      position: relative;
-      display: inline-block;
-    }
+        .team-header h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+        }
 
-    /* orange slash effect (through the span) */
-    .team-header h2 span::after {
-      content: '';
-      position: absolute;
-      bottom: 8px;
-      left: -2px;
-      width: calc(100% + 4px);
-      height: 6px;
-      background: #F24E1E; /* solid orange */
-      transform: rotate(-2deg);
-      border-radius: 4px;
-      opacity: 0.85;
-      pointer-events: none;
-    }
+        .team-header h2 span {
+            color: #1E4FFF;
+            position: relative;
+            display: inline-block;
+        }
 
-    .team-sub {
-      color: #b0c6f0;
-      font-size: 1.2rem;
-      margin-top: 0.75rem;
-    }
+        .team-header h2 span::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: -2px;
+            width: calc(100% + 4px);
+            height: 6px;
+            background: #F24E1E;
+            transform: rotate(-2deg);
+            border-radius: 4px;
+            opacity: 0.85;
+            pointer-events: none;
+        }
 
-    /* ----- grid layout: 6 cards ----- */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 2rem;
-      margin-bottom: 2.5rem;
-    }
+        .team-sub {
+            color: #b0c6f0;
+            font-size: 1.2rem;
+            margin-top: 0.75rem;
+        }
 
-    /* team card */
-    .team-card {
-      background: #131925; /* slightly lighter dark blue to stand out from #020B2C */
-      border-radius: 15px;
-      padding: 2rem 1.5rem 1.8rem;
-      border: 1px solid #1E4FFF; /* light blue border */
-      backdrop-filter: blur(4px);
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.7);
-      height: 100%;
-    }
+        /* grid: 6 cards */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
 
-    .team-card:hover {
-      border-color: #f24e1e; /* light blue */
-      transform: translateY(-6px);
-      box-shadow: 0 25px 30px -12px rgba(30, 79, 255, 0.5);
-    }
+        .team-card {
+            background: #131925;
+            border-radius: 15px;
+            padding: 2rem 1.5rem 1.8rem;
+            border: 1px solid #1E4FFF;
+            backdrop-filter: blur(4px);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.7);
+            height: 100%;
+        }
 
-    /* image wrapper */
-    .team-img-wrapper {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 1.2rem;
-      border: 3px solid #1E4FFF; /* light blue border */
-      transition: border-color 0.2s;
-      background: #1E3055;
-    }
+        .team-card:hover {
+            border-color: #f24e1e;
+            transform: translateY(-6px);
+            box-shadow: 0 25px 30px -12px rgba(30, 79, 255, 0.5);
+        }
 
-    .team-card:hover .team-img-wrapper {
-      border-color: #F24E1E; /* orange on hover */
-    }
+        .team-img-wrapper {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+            border: 3px solid #1E4FFF;
+            transition: border-color 0.2s;
+            background: #1E3055;
+        }
 
-    .team-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+        .team-card:hover .team-img-wrapper {
+            border-color: #F24E1E;
+        }
 
-    /* name */
-    .team-name {
-      font-size: 1.7rem;
-      font-weight: 600;
-      color: #FFFFFF;
-      margin-bottom: 0.25rem;
-      line-height: 1.2;
-    }
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
-    /* role (founder / cofounder) with orange background tint */
-    .team-role {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #F24E1E; /* orange text */
-      background: rgba(242, 78, 30, 0.12);
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      display: inline-block;
-      margin: 0.5rem 0 0.6rem 0;
-      letter-spacing: 0.02em;
-    }
+        .team-name {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 0.25rem;
+            line-height: 1.2;
+        }
 
-    /* team description (specific lead) */
-    .team-desc {
-      font-size: 0.95rem;
-      color: #b0c8f0;
-      margin-bottom: 1rem;
-      min-height: 2.8rem;
-      font-weight: 400;
-    }
+        .team-role {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #F24E1E;
+            background: rgba(242, 78, 30, 0.12);
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 0.5rem 0 0.6rem 0;
+            letter-spacing: 0.02em;
+        }
 
-    /* social icons */
-    .team-social {
-      display: flex;
-      gap: 1.4rem;
-      margin-top: 0.2rem;
-    }
+        .team-desc {
+            font-size: 0.95rem;
+            color: #b0c8f0;
+            margin-bottom: 1rem;
+            min-height: 2.8rem;
+            font-weight: 400;
+        }
 
-    .team-social a {
-      color: #a0b8e0;
-      font-size: 1.8rem;
-      transition: all 0.2s;
-      line-height: 1;
-    }
+        .team-social {
+            display: flex;
+            gap: 1.4rem;
+            margin-top: 0.2rem;
+        }
 
-    .team-social a:hover {
-      color: #F24E1E; /* orange */
-      transform: scale(1.15);
-    }
+        .team-social a {
+            color: #a0b8e0;
+            font-size: 1.8rem;
+            transition: all 0.2s;
+            line-height: 1;
+        }
 
-    /* keep brand colors on hover for clarity */
-    .team-social a:hover .fa-linkedin {
-      color: #0A66C2; /* linkedin blue */
-    }
-    .team-social a:hover .fa-github {
-      color: #FFFFFF; /* white */
-    }
+        .team-social a:hover {
+            color: #F24E1E;
+            transform: scale(1.15);
+        }
 
-    /* community banner (exactly as seen in original images) */
-    .community-banner {
-      margin-top: 2rem;
-      background: #0F1E42;
-      border-radius: 10px;
-      padding: 1.2rem 2rem;
-      text-align: center;
-      border: 1px solid #1E4FFF;
-      color: #ccd9ff;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
+        .team-social a:hover .fa-linkedin { color: #0A66C2; }
+        .team-social a:hover .fa-github { color: #FFFFFF; }
 
-    .community-banner span {
-      color: #F24E1E;
-      font-weight: 700;
-    }
+        .community-banner {
+            margin-top: 2rem;
+            background: #0F1E42;
+            border-radius: 10px;
+            padding: 1.2rem 2rem;
+            text-align: center;
+            border: 1px solid #1E4FFF;
+            color: #ccd9ff;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
 
-    /* responsive */
-    @media (max-width: 1024px) {
-      .team-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
+        .community-banner span {
+            color: #F24E1E;
+            font-weight: 700;
+        }
 
-    @media (max-width: 640px) {
-      body {
-        background-attachment: scroll;
-      }
+        /* Footer styles */
+        .site-footer {
+            background: #020b2c;
+            border-top: 1px solid rgba(30, 79, 255, 0.4);
+            padding: 3rem 1.5rem 1rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .footer-about h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            color: #f24e1e;
+            margin-bottom: 1rem;
+        }
+        .footer-about p {
+            color: #b0c6f0;
+            line-height: 1.6;
+        }
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+        .footer-links h4::after, .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: #f24e1e;
+        }
+        .footer-links ul, .footer-contact ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 0.6rem;
+        }
+        .footer-links a {
+            color: #b0c6f0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #f24e1e;
+        }
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .social-links a {
+            color: #fff;
+            font-size: 1.8rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #f24e1e;
+        }
+        .footer-contact p {
+            color: #b0c6f0;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .footer-container { grid-template-columns: 1fr; }
+        }
 
-      .team-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .team-header h2 {
-        font-size: 2.2rem;
-      }
-    }
-  </style>
+        /* responsive */
+        @media (max-width: 1024px) {
+            .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .team-header h2 { font-size: 2.2rem; }
+        }
+    </style>
 </head>
 <body>
-  <section class="team-section">
-    <!-- header with orange slash through "BUILDERS" -->
-    <div class="team-header">
-      <h2>THE <span>BUILDERS</span> OF AURAX</h2>
-      <div class="team-sub">Founder & Cofounders · Leading teams</div>
-    </div>
+    <!-- Sticky Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a class="brand" href="Home.html">
+                <span class="logo" aria-label="AuraX">
+                    <span class="logo-a">A</span>
+                    <span class="logo-rest">uraX</span>
+                </span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+            <nav class="nav-links" id="primary-nav">
+                <a href="home.html">Home</a>
+                <a href="Events.html">Events</a>
+                <a href="Team.html">Team</a>
+                <a href="AboutUs.html">AboutUs</a>
+                <a href="ContactUs.html">ContactUs</a>
+            </nav>
+        </div>
+    </header>
 
-    <!-- grid: one founder + five cofounders (total 6) -->
-    <div class="team-grid">
-      
-      <!-- 1. Dawit Gerezgiher – Founder & CEO -->
-      <div class="team-card">
-        <div class="team-img-wrapper">
-          <img class="team-img" src="assets/dave.JPG">
+    <section class="team-section">
+        <div class="team-header">
+            <h2>THE <span>BUILDERS</span> OF AURAX</h2>
+            <div class="team-sub">Founder & Cofounders · Leading teams</div>
         </div>
-        <h3 class="team-name">Dawit Gerezgiher</h3>
-        <div class="team-role">Founder & CEO</div>
-        <div class="team-desc">Overall vision, strategy & leadership</div>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/dawit-gerezgiher/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/Dawit-Gerezgiher" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
 
-      <!-- 2. Eyob Seta – Cofounder & COO (Operations & Infrastructure) -->
-      <div class="team-card">
-        <div class="team-img-wrapper">
-          <img class="team-img" src="assets/Eyob.jpg" alt="Eyob Seta">
-        </div>
-        <h3 class="team-name">Eyob Seta</h3>
-        <div class="team-role">Cofounder & COO</div>
-        <div class="team-desc">Operations & Infrastructure Lead</div>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/eyob-seta-b1a56834b/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/Eyobseta" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
+        <div class="team-grid">
+            <!-- Dawit Gerezgiher – Founder & CEO -->
+            <div class="team-card">
+                <div class="team-img-wrapper">
+                    <img class="team-img" src="assets/dave.JPG" alt="Dawit Gerezgiher">
+                </div>
+                <h3 class="team-name">Dawit Gerezgiher</h3>
+                <div class="team-role">Founder & CEO</div>
+                <div class="team-desc">Overall vision, strategy & leadership</div>
+                <div class="team-social">
+                    <a href="https://www.linkedin.com/in/dawit-gerezgiher/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Dawit-Gerezgiher" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
 
-      <!-- 3. Mahlet Tesfahuney – Cofounder, Marketing, Communication & Data Analytics -->
-      <div class="team-card">
-        <div class="team-img-wrapper">
-          <img class="team-img" src="assets/mahi.jpg" alt="Mahlet Tesfahuney">
-        </div>
-        <h3 class="team-name">Mahlet Tesfahuney</h3>
-        <div class="team-role">Cofounder & CMO</div>
-        <div class="team-desc">Marketing, Comms & Data Analytics</div>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/mahlet-tesfahunegn-749616362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/Mahlet-Tesfahunegn" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
+            <!-- Eyob Seta – Cofounder & COO -->
+            <div class="team-card">
+                <div class="team-img-wrapper">
+                    <img class="team-img" src="assets/Eyob.jpg" alt="Eyob Seta">
+                </div>
+                <h3 class="team-name">Eyob Seta</h3>
+                <div class="team-role">Cofounder & COO</div>
+                <div class="team-desc">Operations & Infrastructure Lead</div>
+                <div class="team-social">
+                    <a href="https://www.linkedin.com/in/eyob-seta-b1a56834b/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Eyobseta" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
 
-      <!-- 4. Bereket Kiros – Cofounder, Industry Engagement & Partnerships -->
-      <div class="team-card">
-        <div class="team-img-wrapper">
-          <img class="team-img" src="assets/beki.jpg" alt="Bereket Kiros">
-        </div>
-        <h3 class="team-name">Bereket Kiros</h3>
-        <div class="team-role">Cofounder</div>
-        <div class="team-desc">Industry Engagement & Partnerships</div>
-        <div class="team-social">
-          <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
+            <!-- Mahlet Tesfahuney – Cofounder & CMO -->
+            <div class="team-card">
+                <div class="team-img-wrapper">
+                    <img class="team-img" src="assets/mahi.jpg" alt="Mahlet Tesfahuney">
+                </div>
+                <h3 class="team-name">Mahlet Tesfahuney</h3>
+                <div class="team-role">Cofounder & CMO</div>
+                <div class="team-desc">Marketing, Comms & Data Analytics</div>
+                <div class="team-social">
+                    <a href="https://www.linkedin.com/in/mahlet-tesfahunegn-749616362?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Mahlet-Tesfahunegn" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
 
-      <!-- 5. Faniel – Cofounder, Innovation & Technical Support -->
-      <div class="team-card">
-        <div class="team-img-wrapper">
-          <img class="team-img" src="assets/fani.JPG" alt="Fanual">
-        </div>
-        <h3 class="team-name">Faniel Negasi</h3>
-        <div class="team-role">Cofounder</div>
-        <div class="team-desc">Innovation & Technical Support</div>
-        <div class="team-social">
-          <a href="https://www.linkedin.com/in/faniel-negasi?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://github.com/Faniel-7" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
+            <!-- Bereket Kiros – Cofounder -->
+            <div class="team-card">
+                <div class="team-img-wrapper">
+                    <img class="team-img" src="assets/beki.jpg" alt="Bereket Kiros">
+                </div>
+                <h3 class="team-name">Bereket Kiros</h3>
+                <div class="team-role">Cofounder</div>
+                <div class="team-desc">Industry Engagement & Partnerships</div>
+                <div class="team-social">
+                    <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
 
-      <!-- 6. Edlawit Kalaue – Cofounder, Academic & Program Management -->
-      <div class="team-card">
-        <div class="team-img-wrapper">
-          <img class="team-img" src="assets/edl.jpg" alt="Edlawit Kalaue">
+            <!-- Faniel Negasi – Cofounder -->
+            <div class="team-card">
+                <div class="team-img-wrapper">
+                    <img class="team-img" src="assets/fani.JPG" alt="Fanual">
+                </div>
+                <h3 class="team-name">Faniel Negasi</h3>
+                <div class="team-role">Cofounder</div>
+                <div class="team-desc">Innovation & Technical Support</div>
+                <div class="team-social">
+                    <a href="https://www.linkedin.com/in/faniel-negasi?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Faniel-7" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <!-- Edlawit Kalaue – Cofounder -->
+            <div class="team-card">
+                <div class="team-img-wrapper">
+                    <img class="team-img" src="assets/edl.jpg" alt="Edlawit Kalaue">
+                </div>
+                <h3 class="team-name">Edlawit Kalaue</h3>
+                <div class="team-role">Cofounder</div>
+                <div class="team-desc">Academic & Program Management</div>
+                <div class="team-social">
+                    <a href="www.linkedin.com/in/edilawit-kalau-51a188384" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
         </div>
-        <h3 class="team-name">Edlawit Kalaue</h3>
-        <div class="team-role">Cofounder</div>
-        <div class="team-desc">Academic & Program Management</div>
-        <div class="team-social">
-          <a href="www.linkedin.com/in/edilawit-kalau-51a188384" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+
+        <div class="community-banner">
+            <span>⚡ COMMUNITY DEVELOPERS ⚡</span> · 25+ active members · 6 project teams · always open
         </div>
-      </div>
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem; color: #6a7fb1;">Click icons to connect (LinkedIn & GitHub placeholders)</p>
+    </section>
 
-      
-    </div>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>AuraX</h3>
+                <p>Coding and Innovation Hub at Mekelle University. Fueling the next generation of coders and innovators.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="Home.html">Home</a></li>
+                    <li><a href="Events.html">Events</a></li>
+                    <li><a href="Team.html">Team</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                    <li><a href="ContactUs.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Connect</h4>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fab fa-telegram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fab fa-github"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+                <p>Email: auraxhub2026@gmail.com</p>
+                <p>Phone: +251 9 87 97 33 93</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AuraX. All rights reserved.</p>
+        </div>
+    </footer>
 
-    <!-- community banner (as seen in original design) -->
-    <div class="community-banner">
-      <span>⚡ COMMUNITY DEVELOPERS ⚡</span> · 25+ active members · 6 project teams · always open
-    </div>
-
-    <!-- note: replace # with actual profile URLs -->
-    <p style="text-align: center; margin-top: 2rem; font-size: 0.85rem; color: #6a7fb1;">Click icons to connect (LinkedIn & GitHub placeholders)</p>
-  </section>
+    <script>
+        // Header toggle
+        const toggle = document.querySelector('.nav-toggle');
+        const nav = document.querySelector('.nav-links');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                const isOpen = nav.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', isOpen);
+            });
+        }
+    </script>
 </body>
 </html>
